@@ -1,0 +1,10 @@
+context:
+  initializer:
+    classes: com.noname.sb2.initializer.ThirdInitializer
+  listener:
+    classes: com.noname.sb2.listener.ThirdListener
+spring:
+  banner:
+    location: my_banner.txt
+class: 测试班级
+money: ${random.int[0,100]}

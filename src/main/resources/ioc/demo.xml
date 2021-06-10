@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="student" class="com.noname.sb2.ioc.xml.Student">
+        <!--        构造器方式使用constructor-arg标签进行-->
+        <constructor-arg index="0" value="zhangsan"/>
+        <constructor-arg index="1" value="14"/>
+        <!--        set方式赋值使用property标签进行-->
+        <!--        <property name="name" value="zhangsan"/>-->
+        <!--        <property name="age" value="13"/>-->
+        <property name="classList">
+            <list>
+                <value>math</value>
+                <value>english</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--    在xml方式中，每一个需要注入的类都是一个bean,property标签则代表每一个属性，ref是引用，是指在同一个xml文件里的id-->
+    <bean id="helloService" class="com.noname.sb2.ioc.xml.HelloService">
+        <property name="student" ref="student"/>
+        <property name="animal" ref="cat"/>
+    </bean>
+
+    <bean id="animalFactory" class="com.noname.sb2.ioc.xml.AnimalFactory">
+
+    </bean>
+    <!--    同上面，不同的是该对象是通过工厂模式创建的，所以需要申明factory是谁，同样引用的也是本xml的id,并且需要指明创建的方法，dog是方法参数-->
+    <bean id="dog" class="com.noname.sb2.ioc.xml.AnimalFactory" factory-method="getAnimal" factory-bean="animalFactory">
+        <constructor-arg value="dog"/>
+    </bean>
+    <!--    同上面，不同的是该对象是通过工厂模式创建的，所以需要申明factory是谁，同样引用的也是本xml的id,并且需要指明创建的方法，cat是方法参数-->
+    <bean id="cat" class="com.noname.sb2.ioc.xml.AnimalFactory" factory-method="getAnimal" factory-bean="animalFactory">
+        <constructor-arg value="cat"/>
+    </bean>
+</beans>
